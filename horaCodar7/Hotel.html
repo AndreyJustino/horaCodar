@@ -13,17 +13,15 @@
 		}
 
 		class Hospede{
-			constructor(nome, quantDias, valorDiaria, numeroQuarto){
+			constructor(nome, valorDiaria, idade){
 				this.nome = nome
-				this.quantDias = quantDias
 				this.valorDiaria = valorDiaria
-				this.numeroQuarto = numeroQuarto
+				this.idade = idade
 			}
 
-			apresentacao() {
-				return `Numero do quarto: ${this.numeroQuarto} \n Nome do hospede: ${this.nome} \n Valor a ser pago: ${this.valorDiaria}`
-			}
 		}
+
+		let hospedes = []
 
 		let quartos = [
 			new Quarto(1, 'disponível'),
@@ -93,7 +91,7 @@
 
 			let texto = hospede.apresentacao()
 
-			alert(`Quarto reservado com sucesso!\n ${texto}`)
+			alert(`Quarto reservado com sucesso!\nNumero do quarto: ${numeroQuarto} \nNome do hospede: ${nomeHosp} \nValor a ser pago: ${valorDiaria}`)
 
 			inicio();
 		}
@@ -101,7 +99,20 @@
 		function cadastro_hospedes() {
 			alert('HOTEL PROANO - CADASTRO DE HÓSPEDES');
 
-			
+			let idade = parseInt(prompt("Informe sua idade: "))
+
+			if(idade <= 6){
+				valorDiaria = 0
+			}else if(idade >= 60){
+					
+			}
+
+			let valorDiaria = parseFloat(prompt("Informe o valor da diaria:"))
+
+			let nomeHosp =  String(prompt("Informe seu nome:"))
+
+			let userHospede = new Hospede(nomeHosp,valorDiaria,)
+
 
 			inicio();
 		}

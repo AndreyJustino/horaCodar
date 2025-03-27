@@ -1,0 +1,51 @@
+Aqui está um resumo dos programas que você solicitou:
+
+1. **Reserva de Quartos em um Hotel**:
+   - **Objetivo**: Criar um sistema de reservas para um hotel.
+   - **Passos**:
+     1. Solicitar o valor da diária e a quantidade de dias, validando os dados.
+     2. Perguntar o nome do hóspede.
+     3. Solicitar o número do quarto (1 a 20) e verificar se está disponível.
+     4. Confirmar a reserva com o hóspede.
+     - Caso os dados sejam válidos, o programa deve exibir as reservas de quartos.
+
+2. **Cadastro de Hóspedes**:
+   - **Objetivo**: Cadastrar hóspedes e calcular custos baseados em idades.
+   - **Passos**:
+     1. Solicitar o valor da diária.
+     2. Cadastrar hóspedes até digitar “PARE”.
+     3. Aplicar gratuidade para hóspedes com menos de 6 anos e meia diária para maiores de 60 anos.
+     4. Exibir a quantidade de gratuidades, meias hospedagens e o valor total.
+
+3. **Cadastro de Hóspedes com Pesquisa**:
+   - **Objetivo**: Criar um sistema de cadastro e pesquisa de hóspedes.
+   - **Passos**:
+     1. Menu com opções: Cadastrar, Pesquisar, Listar, Sair.
+     2. Permitir cadastrar até 15 hóspedes.
+     3. Permitir pesquisar e listar os hóspedes cadastrados.
+     4. Exibir mensagem de sucesso ou erro para cada ação.
+
+4. **Reservas para Eventos**:
+   - **Objetivo**: Sistema de reserva de auditórios para eventos.
+   - **Passos**:
+     1. Escolher o auditório adequado para o evento, verificando a quantidade de convidados.
+     2. Verificar a disponibilidade de horário do auditório.
+     3. Calcular o número de garçons e o custo total do evento.
+     4. Calcular o custo do buffet e exibir o valor total.
+     5. Confirmar a reserva do evento.
+
+5. **Escolha de Combustível**:
+   - **Objetivo**: Comparar preços de combustíveis para abastecer um carro do hotel.
+   - **Passos**:
+     1. Informar os preços de álcool e gasolina nos dois postos.
+     2. Calcular qual combustível é mais barato, considerando o desconto de 30% no álcool.
+     3. Exibir a recomendação do posto mais barato.
+
+6. **Manutenção de Ar-Condicionados**:
+   - **Objetivo**: Obter orçamentos de empresas para manutenção de aparelhos de ar-condicionado.
+   - **Passos**:
+     1. Informar o valor por aparelho, a quantidade de aparelhos e o desconto oferecido.
+     2. Calcular o custo total e aplicar o desconto, se aplicável.
+     3. Comparar orçamentos de diferentes empresas e mostrar o mais barato.
+
+Esses programas abordam diferentes cenários de gestão de um hotel, com foco em reservas, cadastro de hóspedes, eventos, e manutenções. Cada parte oferece interatividade com o usuário para realizar operações específicas e calcular custos.
