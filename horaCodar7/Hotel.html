@@ -1,0 +1,138 @@
+<html>
+
+<head>
+
+	<script>
+	
+		class Quarto{
+			constructor(numeroQuarto, status){
+				this.numeroQuarto = numeroQuarto
+				this.status = status
+
+			}
+		}
+
+		class Hospede{
+			constructor(nome, quantDias, valorDiaria, numeroQuarto){
+				this.nome = nome
+				this.quantDias = quantDias
+				this.valorDiaria = valorDiaria
+				this.numeroQuarto = numeroQuarto
+			}
+
+			apresentacao() {
+				return `Numero do quarto: ${this.numeroQuarto} \n Nome do hospede: ${this.nome} \n Valor a ser pago: ${this.valorDiaria}`
+			}
+		}
+
+		let quartos = [
+			new Quarto(1, 'disponível'),
+			new Quarto(2, 'ocupado'),
+			new Quarto(3, 'disponível'),
+			new Quarto(4, 'ocupado'),
+			new Quarto(5, 'disponível'),
+			new Quarto(6, 'ocupado'),
+			new Quarto(7, 'disponível'),
+			new Quarto(8, 'ocupado'),
+			new Quarto(9, 'disponível'),
+			new Quarto(10, 'ocupado'),
+			new Quarto(11, 'disponível'),
+			new Quarto(12, 'ocupado'),
+			new Quarto(13, 'disponível'),
+			new Quarto(14, 'ocupado'),
+			new Quarto(15, 'disponível'),
+			new Quarto(16, 'ocupado'),
+			new Quarto(17, 'disponível'),
+			new Quarto(18, 'ocupado'),
+			new Quarto(19, 'disponível'),
+			new Quarto(20, 'ocupado')
+		];
+
+		function inicio() {
+
+			let escolha = parseInt(prompt('Selecione uma opção\n1.) Reserva de Quartos \n2.) Cadastro de Hóspedes \n3.) Abastecimento de Carros \n4.) Sair'));
+
+			switch(escolha){
+				case 1:
+					reserva_quartos()
+					break;
+				case 2:
+					cadastro_hospedes()
+					break;
+				case 3:
+					abastecer_carros()
+					break;
+				case 4:
+					sair()
+					break;
+				default:
+					erro()
+					break;
+			}
+
+			
+		}		
+
+		function reserva_quartos() {
+			alert('HOTEL PROANO - RESERVA DE QUARTOS');
+
+			let valorDiaria = parseFloat(prompt("Informe o valor da diaria:"))
+			let quantDias = parseInt(prompt("Informe a quantidade de dias:"))
+
+			let nomeHosp =  String(prompt("Informe seu nome:"))
+
+			let numeroQuarto = parseInt(prompt("Informe o numero do quarto:"))
+
+			while(quartos[numeroQuarto-1].status == "ocupado"){
+				numeroQuarto = parseInt(prompt("Quarto ocupado! Escolha outro quarto."))
+			}
+
+			quartos[numeroQuarto-1].status = "ocupado"
+
+			const hospede = new Hospede(nomeHosp, quantDias, valorDiaria, numeroQuarto)
+
+			let texto = hospede.apresentacao()
+
+			alert(`Quarto reservado com sucesso!\n ${texto}`)
+
+			inicio();
+		}
+
+		function cadastro_hospedes() {
+			alert('HOTEL PROANO - CADASTRO DE HÓSPEDES');
+
+			
+
+			inicio();
+		}
+
+		function abastecer_carros() {
+			alert('HOTEL {NOME DO HOTEL} - ABASTECER');
+			inicio();
+		}
+
+		function erro() {
+			alert('Por favor, informe um número entre 1 e 4');
+			inicio();
+		}
+
+		function sair() {
+			var confirma = confirm('Você deseja sair?');
+			// if (confirma) {
+			// 	window.close();
+			// } else {
+			// 	inicio();
+			// }
+		}
+
+		
+		
+		inicio();
+	</script>
+</head>
+
+<body>
+
+</body>
+
+</html>
