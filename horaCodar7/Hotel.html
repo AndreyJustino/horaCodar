@@ -76,7 +76,7 @@
 
 			let opcao = "CONTINUE"
 			
-			let quantGratuidade, quantMeia, valorTotal
+			let quantGratuidade = 0, quantMeia = 0, valorTotal = 0.0
 
 			while(opcao.toUpperCase() == "CONTINUE"){
 				let nomeHosp =  String(prompt("Informe seu nome:"))
@@ -101,9 +101,9 @@
 
 				hospedes.push(userHospede)
 
-				opcao = String(prompt("Desejar continuar cadastrar mais hospede? [CONTINUE/PARE]")).toUpperCase()
+				opcao = String(prompt("Desejar continuar cadastrar mais hospede? [CONTINUE/PARE]"))
 
-				while(opcao != "CONTINUE" || opcao != "PARE"){
+				while( opcao.toUpperCase() != "CONTINUE" && opcao.toUpperCase() != "PARE"){
 					opcao = String(prompt("Opcao invalida, escolha entre: CONTINUE ou PARE")).toUpperCase()
 				}
 			}
@@ -114,41 +114,47 @@
 		}
 
 		function reserva_quartos() {
-			alert('HOTEL PROANO - RESERVA DE QUARTOS\nConfirme o valor da diaria e seu nome, que ja foi cadastrado.');
-
-			//nomeHosp,valorDiaria
+			alert('HOTEL PROANO - RESERVA DE QUARTOS');
+			alert("Confirme o valor da diaria e seu nome, que ja foi cadastrado.")
 
 			let nomeHosp =  String(prompt("Informe seu nome:"))
 			let valorDiaria = parseFloat(prompt("Informe o valor da diaria:"))
 			
 			let encontrado = false
-			for(let i = 0; i <= hospedes.length(); i++){
-				if(hospedes[i].nome == nomeHosp && hospedes[i].valorDiaria == valorDiaria){
-					encontrado = true
-					break
-				}
-			}
-
-			if(!encontrado){
-				alert("Hospede não foi encontrado!\nInforme corretamente os dados ou realizae um novo cadastro.")
-				inicio()
+			
+			if(hospedes.length == 0){
+				alert("Nenhum usuario cadastrado")
 			}else{
-				alert("Hospede encontrado com sucesso!")
-
-				let quantDias = parseInt(prompt("Informe a quantidade de dias:"))
-
-				let numeroQuarto = parseInt(prompt("Informe o numero do quarto:"))
-
-				while(quartos[numeroQuarto-1].status == "ocupado"){
-					numeroQuarto = parseInt(prompt("Quarto ocupado! Escolha outro quarto."))
+				for(let i = 0; i <= hospedes.length; i++){
+					if(hospedes[i].nome == nomeHosp && hospedes[i].valorDiaria == valorDiaria){
+						encontrado = true
+						break
+					}
 				}
 
-				quartos[numeroQuarto-1].status = "ocupado"
+				if(!encontrado){
+					alert("Hospede não foi encontrado!\nInforme corretamente os dados ou realizae um novo cadastro.")
+					inicio()
+				}else{
+					alert("Hospede encontrado com sucesso!")
 
-				alert(`Quarto reservado com sucesso!\nNumero do quarto: ${numeroQuarto} \nNome do hospede: ${nomeHosp} \nValor a ser pago: ${valorDiaria}`)
+					let quantDias = parseInt(prompt("Informe a quantidade de dias:"))
 
-				inicio();
+					let numeroQuarto = parseInt(prompt("Informe o numero do quarto:"))
+
+					while(quartos[numeroQuarto-1].status == "ocupado"){
+						numeroQuarto = parseInt(prompt("Quarto ocupado! Escolha outro quarto."))
+					}
+
+					quartos[numeroQuarto-1].status = "ocupado"
+
+					alert(`Quarto reservado com sucesso!\nNumero do quarto: ${numeroQuarto} \nNome do hospede: ${nomeHosp} \nValor a ser pago: ${valorDiaria}`)
+
+					
+				}
 			}
+
+			inicio();
 			
 		}
 
