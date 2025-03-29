@@ -18,10 +18,12 @@
 
 
 	  class Auditorio{
-		constructor(nome, lugares, espaco){
+		constructor(nome, lugares, espaco, status){
 			this.nome = nome;
 			this.lugares = lugares;
 			this.espaco = espaco;
+			this.total = lugares + espaco;
+			this.status = status;
 		}
 	  } 
 
@@ -51,8 +53,8 @@
       let hospedes = [];
 
 	  let auditorio = [
-		new Auditorio("Laranja", 150, 70),
-		new Auditorio("Colorado", 350, 0)
+		new Auditorio("Laranja", 150, 70, true),
+		new Auditorio("Colorado", 350, 0, true)
 	  ];
 
 	  sessionStorage.setItem("validation", false);
@@ -77,7 +79,7 @@
 
 		alert(`Bem vindo ao Hotel Proano, ${sessionStorage.getItem("name")}. É um imenso prazer ter você por aqui!`);
 
-		let escolha = parseInt(prompt("Selecione uma opção\n \n1.) Cadastro de Hóspedes \n2.) Abastecimento de Carros \n3.) Mais opções \n4.) Sair"));
+		let escolha = parseInt(prompt("Selecione uma opção\n \n1.) Cadastro de Hóspedes \n2.) Abastecimento de Carros \n3.) Mais opções \n4.) Auditorio \n5.) Sair"));
 
 		switch (escolha) {
 			case 1:
@@ -90,6 +92,9 @@
 				mais_opcoes();
 				break;
 			case 4:
+				cadastro_auditorio();
+				break;
+			case 5:
 				sair();
 				break;
 			default:
@@ -294,12 +299,7 @@
         mais_opcoes();
       }
 
-      function abastecer_carros() {
-        alert("HOTEL {NOME DO HOTEL} - ABASTECER");
-        inicio();
-      }
-
-      function erro() {
+	  function erro() {
         alert("Por favor, selecione uma das opções.");
         inicio();
       }
@@ -313,6 +313,45 @@
         // 	inicio();
         // }
       }
+
+	  
+
+	  function agenda_horario(){
+		const DATA = {
+			segunda: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
+			terca: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
+			quarta: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
+			quinta: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
+			sexta: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
+			sabado: [7,8,9,10,11,12,13,14,15],
+			domingo: [7,8,9,10,11,12,13,14,15]
+		}
+
+		
+	  }
+
+	  function cadastro_auditorio(){
+		alert("AUDITORIO PROANO - CADASTRO")
+
+		let numeroConvidado = parseInt(prompt("Informe o numero de convidados"))
+
+		let objAuditorio = auditorio.find((value) => numeroConvidado <= value.total )
+
+		if(objAuditorio == undefined || !objAuditorio.status){
+			alert("Não há auditorio disponivel")
+			inicio()
+		}
+
+		alert(`Use o auditorio ${objAuditorio.nome} (inclua mais ${numeroConvidado - objAuditorio.lugares} cadeiras)`)
+	  }
+
+
+      function abastecer_carros() {
+        alert("HOTEL {NOME DO HOTEL} - ABASTECER");
+        inicio();
+      }
+
+      
 
       inicio();
     </script>
