@@ -1,261 +1,322 @@
 <html>
+  <head>
+    <script>
+      class Quarto {
+        constructor(numeroQuarto, status) {
+          this.numeroQuarto = numeroQuarto;
+          this.status = status;
+        }
+      }
 
-<head>
+      class Hospede {
+        constructor(nome, valorDiaria, idade) {
+          this.nome = nome;
+          this.valorDiaria = valorDiaria;
+          this.idade = idade;
+        }
+      }
 
-	<script>
-	
-		class Quarto{
-			constructor(numeroQuarto, status){
-				this.numeroQuarto = numeroQuarto
-				this.status = status
 
-			}
+	  class Auditorio{
+		constructor(nome, lugares, espaco){
+			this.nome = nome;
+			this.lugares = lugares;
+			this.espaco = espaco;
+		}
+	  } 
+
+      let quartos = [
+        new Quarto(1, "disponível"),
+        new Quarto(2, "disponível"),
+        new Quarto(3, "disponível"),
+        new Quarto(4, "disponível"),
+        new Quarto(5, "disponível"),
+        new Quarto(6, "disponível"),
+        new Quarto(7, "disponível"),
+        new Quarto(8, "disponível"),
+        new Quarto(9, "disponível"),
+        new Quarto(10, "disponível"),
+        new Quarto(11, "disponível"),
+        new Quarto(12, "disponível"),
+        new Quarto(13, "disponível"),
+        new Quarto(14, "disponível"),
+        new Quarto(15, "disponível"),
+        new Quarto(16, "disponível"),
+        new Quarto(17, "disponível"),
+        new Quarto(18, "disponível"),
+        new Quarto(19, "disponível"),
+        new Quarto(20, "disponível"),
+      ];
+
+      let hospedes = [];
+
+	  let auditorio = [
+		new Auditorio("Laranja", 150, 70),
+		new Auditorio("Colorado", 350, 0)
+	  ];
+
+	  sessionStorage.setItem("validation", false);
+
+      function inicio() {
+        
+        if (sessionStorage.getItem("validation") == "false") {
+          alert("Bem vindo ao Hotel Proano!");
+
+          let nome = String(prompt("Informe seu nome:"));
+
+          sessionStorage.setItem("name", nome);
+
+          let senha = parseInt(prompt("Informe sua senha."));
+
+          while (senha != 2678) {
+            senha = parseInt(prompt("Senha incorreta! Tente novamente."));
+          }
+
+          sessionStorage.setItem("validation", true);
+        }
+
+		alert(`Bem vindo ao Hotel Proano, ${sessionStorage.getItem("name")}. É um imenso prazer ter você por aqui!`);
+
+		let escolha = parseInt(prompt("Selecione uma opção\n \n1.) Cadastro de Hóspedes \n2.) Abastecimento de Carros \n3.) Mais opções \n4.) Sair"));
+
+		switch (escolha) {
+			case 1:
+				cadastro_hospedes();
+				break;
+			case 2:
+				abastecer_carros();
+				break;
+			case 3:
+				mais_opcoes();
+				break;
+			case 4:
+				sair();
+				break;
+			default:
+				erro();
+				break;
+		}
+        
+      }
+
+      function valorNegativo(valor) {
+        return valor < 0;
+      }
+
+      function quantidadeDias(dias) {
+        return dias > 30;
+      }
+
+      function cadastro_hospedes() {
+        alert("HOTEL PROANO - CADASTRO DE HÓSPEDES");
+
+        let opcao = "CONTINUE";
+
+        let quantGratuidade = 0,
+          quantMeia = 0,
+          valorTotal = 0.0;
+
+        while (opcao.toUpperCase() == "CONTINUE") {
+          if (hospedes.length <= 20) {
+            let nomeHosp = String(prompt("Informe o nome do hospede:"));
+            let idade = parseInt(prompt("Informe sua idade: "));
+
+            let quantDias;
+
+            let valorDiaria = parseFloat(
+              prompt("Informe o valor padrão da diaria.")
+            );
+
+            while (valorNegativo(valorDiaria)) {
+              valorDiaria = parseFloat(
+                prompt("Informe um valor valido para a diaria.")
+              );
+            }
+
+            if (idade <= 6) {
+              alert(`${nomeHosp} possui gratuidade.`);
+              valorDiaria = 0;
+              quantGratuidade++;
+            } else if (idade >= 60) {
+              alert(`${nomeHosp} paga meia.`);
+
+              quantDias = parseInt(prompt("Informe a quantidade de dias."));
+
+              while (quantidadeDias(quantDias)) {
+                quantDias = parseInt(
+                  prompt("Não é permitido mais de 30 dias! Informe um valor abaixo de 30 dias.")
+                );
+              }
+
+              valorDiaria = (valorDiaria / 2) * quantDias;
+              quantMeia++;
+              valorTotal += valorDiaria;
+            } else {
+              quantDias = parseInt(prompt("Informe a quantidade de dias."));
+
+              while (quantidadeDias(quantDias)) {
+                quantDias = parseInt(
+                  prompt("Não é permitido mais de 30 dias! Informe um valor abaixo de 30 dias.")
+                );
+              }
+
+              valorDiaria *= quantDias;
+              valorTotal += valorDiaria;
+            }
+
+            let userHospede = new Hospede(nomeHosp, valorDiaria, idade);
+
+            let confirmacao = String(prompt("Confirmar cadastro: [S/N]")).toLocaleUpperCase();
+
+            while (confirmacao.toUpperCase() != "S" && confirmacao.toUpperCase() != "N") {
+              confirmacao = String(prompt("Opcao invalida, escolha entre: S ou N")).toUpperCase();
+            }
+
+            if (confirmacao == "N") {
+              inicio();
+              break;
+            }
+
+            hospedes.push(userHospede);
+
+            reserva_quartos(nomeHosp, valorDiaria);
+
+            opcao = String(prompt("Desejar continuar cadastrar mais hospede? [CONTINUE/PARE]"));
+
+            while ( opcao.toUpperCase() != "CONTINUE" && opcao.toUpperCase() != "PARE") {
+              opcao = String(prompt("Opcao invalida, escolha entre: CONTINUE ou PARE")).toUpperCase();
+            }
+          } else {
+            alert("Numero de hospede chegou ao maximo.");
+            break;
+          }
+        }
+
+        alert(`Quantidade de gratuidade: ${quantGratuidade}\nQuantidade de meia-hospedagem: ${quantMeia}\nValor total: ${valorTotal}`);
+
+        inicio();
+      }
+
+      function reserva_quartos(nomeHosp, valorDiaria) {
+        let texto = "";
+
+        quartos.forEach((value) => {
+          texto += `Quarto: ${value.numeroQuarto}, Status: ${value.status} |\n`;
+        });
+
+        alert(texto);
+
+        let numeroQuarto = parseInt(prompt("Informe o numero do quarto:"));
+
+		while(numeroQuarto > 20 || numeroQuarto <= 0){
+			numeroQuarto = parseInt(prompt("Escolha um numero menor que 20 e maior que 0:"));
 		}
 
-		class Hospede{
-			constructor(nome, valorDiaria, idade){
-				this.nome = nome
-				this.valorDiaria = valorDiaria
-				this.idade = idade
-			}
+        while (quartos[numeroQuarto - 1].status == "ocupado") {
+			numeroQuarto = parseInt(prompt("Quarto ocupado! Escolha outro quarto."));
+        }
 
-		}
+        quartos[numeroQuarto - 1].status = "ocupado";
 
-		let quartos = [
-			new Quarto(1, 'disponível'),
-			new Quarto(2, 'ocupado'),
-			new Quarto(3, 'disponível'),
-			new Quarto(4, 'ocupado'),
-			new Quarto(5, 'disponível'),
-			new Quarto(6, 'ocupado'),
-			new Quarto(7, 'disponível'),
-			new Quarto(8, 'ocupado'),
-			new Quarto(9, 'disponível'),
-			new Quarto(10, 'ocupado'),
-			new Quarto(11, 'disponível'),
-			new Quarto(12, 'ocupado'),
-			new Quarto(13, 'disponível'),
-			new Quarto(14, 'ocupado'),
-			new Quarto(15, 'disponível'),
-		];
+        alert(`Quarto reservado com sucesso!\nNumero do quarto: ${numeroQuarto} \nNome do hospede: ${nomeHosp} \nValor a ser pago: ${valorDiaria}`);
+      }
 
-		let hospedes = []
+      function mais_opcoes() {
+        let escolha = parseInt(prompt("Selecione uma opção \n1.) Cadastrar Hóspedes \n2.) Pesquisar \n3.) Listar hospedes \n4.) Sair \n5.) Voltar"));
 
-		function inicio() {
+        switch (escolha) {
+			case 1:
+				cadastro_hospedes();
+				break;
+			case 2:
+				pesquisar_hospede();
+				break;
+			case 3:
+				listar_hospedes();
+				break;
+			case 4:
+				sair();
+				break;
+			case 5:
+				inicio();
+				break;
+			default:
+				erro();
+				break;
+        }
+      }
 
-			let escolha = parseInt(prompt('Selecione uma opção\n1.) Reserva de Quartos \n2.) Cadastro de Hóspedes \n3.) Abastecimento de Carros \n4.) Mais opções \n5.) Sair'));
+      function pesquisar_hospede() {
+        alert("HOTEL PROANO - PESQUISAR HOSPEDE");
 
-			switch(escolha){
-				case 1:
-					reserva_quartos()
-					break;
-				case 2:
-					cadastro_hospedes()
-					break;
-				case 3:
-					abastecer_carros()
-					break;
-				case 4:
-					mais_opcoes()
-					break;
-				case 5:
-				sair()
-					break;
-				default:
-					erro()
-					break;
-			}
+        let nomeHosp = String(prompt("Informe o nome do hospede:"));
 
+        let encontrado = false;
+
+        if (hospedes.length == 0) {
+          alert("Nenhum usuario cadastrado");
+        } else {
+          
+			let i;
 			
-		}	
-		
-		function cadastro_hospedes() {
-			alert('HOTEL PROANO - CADASTRO DE HÓSPEDES');
-
-			let opcao = "CONTINUE"
-			
-			let quantGratuidade = 0, quantMeia = 0, valorTotal = 0.0
-
-			while(opcao.toUpperCase() == "CONTINUE"){
-				if(hospedes.length <= 15){
-					let nomeHosp =  String(prompt("Informe seu nome:"))
-					let idade = parseInt(prompt("Informe sua idade: "))
-
-					let valorDiaria
-
-					if(idade <= 6){
-						valorDiaria = 0
-						quantGratuidade++
-					}else if(idade >= 60){
-						valorDiaria = parseFloat(prompt("Informe o valor da diaria:"))
-						valorDiaria = valorDiaria / 2	
-						quantMeia++
-						valorTotal += valorDiaria
-					}else{
-						valorDiaria = parseFloat(prompt("Informe o valor da diaria:"))
-						valorTotal += valorDiaria
-					}
-
-					let userHospede = new Hospede(nomeHosp,valorDiaria,idade)
-
-					hospedes.push(userHospede)
-
-					opcao = String(prompt("Desejar continuar cadastrar mais hospede? [CONTINUE/PARE]"))
-
-					while( opcao.toUpperCase() != "CONTINUE" && opcao.toUpperCase() != "PARE"){
-						opcao = String(prompt("Opcao invalida, escolha entre: CONTINUE ou PARE")).toUpperCase()
-					}
-				}else{
-					alert("Numero de hospede chegou ao maximo.")
-					break
+			for (i = 0; i < hospedes.length; i++) {
+				if (hospedes[i].nome == nomeHosp) {
+					encontrado = true;
+					break;
 				}
-				
 			}
 
-			alert(`Quantidade de gratuidade: ${quantGratuidade}\nQuantidade de meia-hospedagem: ${quantMeia}\nValor total: ${valorTotal}`)
-				
+          if (!encontrado) {
+            alert("Hospede não foi encontrado!");
+          } else {
+            alert("Hospede encontrado com sucesso!");
 
-			inicio();
-		}
+            alert(`Informações do hospede!\nNome do hospede: ${hospedes[i].nome} \nIdade do hospede: ${hospedes[i].idade} \nValor total a pagar: ${hospedes[i].valorDiaria}`);
+          }
+        }
 
-		function reserva_quartos() {
-			alert('HOTEL PROANO - RESERVA DE QUARTOS');
-			alert("Confirme o valor da diaria e seu nome, que ja foi cadastrado.")
+        mais_opcoes();
+      }
 
-			let nomeHosp =  String(prompt("Informe seu nome:"))
-			let valorDiaria = parseFloat(prompt("Informe o valor da diaria:"))
-			
-			let encontrado = false
-			
-			if(hospedes.length == 0){
-				alert("Nenhum usuario cadastrado")
-			}else{
-				for(let i = 0; i <= hospedes.length; i++){
-					if(hospedes[i].nome == nomeHosp && hospedes[i].valorDiaria == valorDiaria){
-						encontrado = true
-						break
-					}
-				}
+      function listar_hospedes() {
+        if (hospedes.length > 0) {
+          let texto = "";
 
-				if(!encontrado){
-					alert("Hospede não foi encontrado!\nInforme corretamente os dados ou realizae um novo cadastro.")
-					inicio()
-				}else{
-					alert("Hospede encontrado com sucesso!")
+          hospedes.forEach((value) => {
+            texto += `Informação do hospede!\n Nome do hospede: ${value.nome} | Idade do hospede: ${value.idade} | Valor total a pagar: ${value.valorDiaria}\n`;
+          });
 
-					let quantDias = parseInt(prompt("Informe a quantidade de dias:"))
+          alert(texto);
+        } else {
+          alert("nenhum hospede não foi encontrado!");
+        }
 
-					let numeroQuarto = parseInt(prompt("Informe o numero do quarto:"))
+        mais_opcoes();
+      }
 
-					while(quartos[numeroQuarto-1].status == "ocupado"){
-						numeroQuarto = parseInt(prompt("Quarto ocupado! Escolha outro quarto."))
-					}
+      function abastecer_carros() {
+        alert("HOTEL {NOME DO HOTEL} - ABASTECER");
+        inicio();
+      }
 
-					quartos[numeroQuarto-1].status = "ocupado"
+      function erro() {
+        alert("Por favor, selecione uma das opções.");
+        inicio();
+      }
 
-					alert(`Quarto reservado com sucesso!\nNumero do quarto: ${numeroQuarto} \nNome do hospede: ${nomeHosp} \nValor a ser pago: ${valorDiaria}`)
+      function sair() {
+        let confirma = confirm("Você deseja sair?");
+        alert(`Muito obrigado e até logo, ${sessionStorage.getItem("name")}.`);
+        // if (confirma) {
+        // 	window.close();
+        // } else {
+        // 	inicio();
+        // }
+      }
 
-					
-				}
-			}
+      inicio();
+    </script>
+  </head>
 
-			inicio();
-			
-		}
-
-		function mais_opcoes(){
-			let escolha = parseInt(prompt('Selecione uma opção \n1.) Cadastrar Hóspedes \n2.) Pesquisar \n3.) Listar hospedes \n4.) Sair'));
-
-			switch(escolha){
-				case 1:
-					cadastro_hospedes()
-					break;
-				case 2:
-					pesquisar_hospede()
-					break;
-				case 3:
-					listar_hospedes()
-					break;
-				case 4:
-					sair()
-					break;
-				default:
-					erro()
-					break;
-			}
-		}
-
-		function pesquisar_hospede(){
-			alert('HOTEL PROANO - PESQUISAR HOSPEDE');
-
-			let nomeHosp =  String(prompt("Informe o nome do hospede:"))
-			
-			let encontrado = false
-			
-			if(hospedes.length == 0){
-				alert("Nenhum usuario cadastrado")
-			}else{
-				let i
-				for(i = 0; i <= hospedes.length; i++){
-					if(hospedes[i].nome == nomeHosp && hospedes[i].valorDiaria == valorDiaria){
-						encontrado = true
-						break
-					}
-				}
-
-				if(!encontrado){
-					alert("Hospede não foi encontrado!")
-					mais_opcoes()
-				}else{
-					alert("Hospede encontrado com sucesso!")
-
-					alert(`informações do hospede!\nNome do hospede: ${hospedes[i].nome} \nIdade do hospede: ${hospedes[i].idade} \nValor da diaria: ${hospedes[i].valorDiaria}`)
-				}
-			}
-
-			mais_opcoes()
-		}
-
-		function listar_hospedes(){
-			if(hospedes.length > 0){
-				hospedes.forEach(value => {
-					alert(`Informações do hospede!\nNome do hospede: ${value.nome} \nIdade do hospede: ${value.idade} \nValor da diaria: ${value.valorDiaria}`)	
-				})
-			}else{
-				alert("nenhum hospede não foi encontrado!")
-			}
-			
-
-			mais_opcoes()
-		}
-
-		function abastecer_carros() {
-			alert('HOTEL {NOME DO HOTEL} - ABASTECER');
-			inicio();
-		}
-
-		function erro() {
-			alert('Por favor, selecione uma das opções.');
-			inicio();
-		}
-
-		function sair() {
-			var confirma = confirm('Você deseja sair?');
-			// if (confirma) {
-			// 	window.close();
-			// } else {
-			// 	inicio();
-			// }
-		}
-
-		
-		
-		inicio();
-	</script>
-</head>
-
-<body>
-
-</body>
-
+  <body></body>
 </html>
