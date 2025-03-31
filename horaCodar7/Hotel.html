@@ -453,26 +453,26 @@
       function abastecer_carros() {
         alert("HOTEL PROANO - ABASTECER");
 
-        const alcoolWayne = parseFloat(prompt("Qual o valor do álcool no posto Wayne Oil?"));
-        const gasolinaWayne = parseFloat(prompt("Qual o valor da gasolina no posto Wayne Oil?"));
-        const alcoolStark = parseFloat(prompt("Qual o valor do álcool no posto Stark Petrol?"));
-        const gasolinaStark = parseFloat(prompt("Qual o valor da gasolina no posto Stark Petrol?"));
+        let alcoolWayne = parseFloat(prompt("Qual o valor do álcool no posto Wayne Oil?"));
+        let gasolinaWayne = parseFloat(prompt("Qual o valor da gasolina no posto Wayne Oil?"));
+        let alcoolStark = parseFloat(prompt("Qual o valor do álcool no posto Stark Petrol?"));
+        let gasolinaStark = parseFloat(prompt("Qual o valor da gasolina no posto Stark Petrol?"));
         
-        const volumeTanque = 42;
+        let volumeTanque = 42;
         
-        const custoAlcoolWayne = alcoolWayne * volumeTanque;
-        const custoGasolinaWayne = gasolinaWayne * volumeTanque;
-        const custoAlcoolStark = alcoolStark * volumeTanque;
-        const custoGasolinaStark = gasolinaStark * volumeTanque;
+        let custoAlcoolWayne = alcoolWayne * volumeTanque;
+        let custoGasolinaWayne = gasolinaWayne * volumeTanque;
+        let custoAlcoolStark = alcoolStark * volumeTanque;
+        let custoGasolinaStark = gasolinaStark * volumeTanque;
         
-        const alcoolVantagemWayne = alcoolWayne < gasolinaWayne * 0.7;
-        const alcoolVantagemStark = alcoolStark < gasolinaStark * 0.7;
+        let alcoolVantagemWayne = alcoolWayne < gasolinaWayne * 0.7;
+        let alcoolVantagemStark = alcoolStark < gasolinaStark * 0.7;
         
-        const melhorCustoWayne = alcoolVantagemWayne ? custoAlcoolWayne : custoGasolinaWayne;
-        const melhorCombustivelWayne = alcoolVantagemWayne ? "álcool" : "gasolina";
+        let melhorCustoWayne = alcoolVantagemWayne ? custoAlcoolWayne : custoGasolinaWayne;
+        let melhorCombustivelWayne = alcoolVantagemWayne ? "álcool" : "gasolina";
         
-        const melhorCustoStark = alcoolVantagemStark ? custoAlcoolStark : custoGasolinaStark;
-        const melhorCombustivelStark = alcoolVantagemStark ? "álcool" : "gasolina";
+        let melhorCustoStark = alcoolVantagemStark ? custoAlcoolStark : custoGasolinaStark;
+        let melhorCombustivelStark = alcoolVantagemStark ? "álcool" : "gasolina";
         
         let posto, combustivel;
         
@@ -484,7 +484,7 @@
             combustivel = melhorCombustivelStark;
         }
         
-        const nome = prompt("Por favor, digite seu nome:");
+        let nome = prompt("Por favor, digite seu nome:");
         
         alert(`${nome}, é mais barato abastecer com ${combustivel} no posto ${posto}`);
 
