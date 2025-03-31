@@ -53,8 +53,8 @@
       let hospedes = [];
 
 	  let auditorio = [
-		new Auditorio("Laranja", 150, 70, true),
-		new Auditorio("Colorado", 350, 0, true)
+      new Auditorio("Laranja", 150, 70, true),
+      new Auditorio("Colorado", 350, 0, true)
 	  ];
 
 	  sessionStorage.setItem("validation", false);
@@ -316,38 +316,178 @@
 
 	  
 
-	  function agenda_horario(){
-		const DATA = {
-			segunda: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
-			terca: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
-			quarta: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
-			quinta: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
-			sexta: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
-			sabado: [7,8,9,10,11,12,13,14,15],
-			domingo: [7,8,9,10,11,12,13,14,15]
-		}
+    const DATA = {
+      segunda: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
+      terca: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
+      quarta: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
+      quinta: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
+      sexta: [7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23],
+      sabado: [7,8,9,10,11,12,13,14,15],
+      domingo: [7,8,9,10,11,12,13,14,15]
+    }
+	  
+    function agenda_horario(diaEvento, horaEvento, quantHora){
+      
+      let retorno = DATA[diaEvento].indexOf(horaEvento) >= 0 ? true : false
 
-		
+      if(retorno){
+        let index = DATA[diaEvento].indexOf(horaEvento) 
+
+        if(DATA[diaEvento][index] + quantHora > DATA[diaEvento][DATA[diaEvento].length - 1]){
+          return;
+        }
+
+        
+        
+      }
+
+      return retorno
 	  }
+
+    function capitalizarPrimeiraLetra(str) {
+      if (str.length === 0) return str;
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    }
+
+    function calGarcom(quantHora, numeroConvidado){
+
+      let quantGarco = Math.ceil(numeroConvidado / 12) + (quantHora / 2 )
+
+      let precoGarcomTotal = quantGarco * (10.5 * quantHora)
+
+      return {
+        msg: `São necessários ${quantGarco} garçons. Custo: R$ ${precoGarcomTotal}`, 
+        total: precoGarcomTotal,
+        quantGarco: quantGarco
+      }
+    }
+
+    function buffet(numeroConvidado){
+      let quantCafe = (numeroConvidado * 0.2) * 0.8 
+      let quantAgua = (numeroConvidado * 0.5) * 0.4
+      let quantSalgado = (numeroConvidado * 7 * 34) / 100
+
+      return {
+        msg: `O evento precisará de ${quantCafe} litros de café, ${quantAgua} litros de água, ${quantSalgado} salgados`, 
+        total: quantCafe + quantAgua + quantSalgado
+      }
+    }
 
 	  function cadastro_auditorio(){
-		alert("AUDITORIO PROANO - CADASTRO")
+      alert("AUDITORIO PROANO - CADASTRO")
 
-		let numeroConvidado = parseInt(prompt("Informe o numero de convidados"))
+      let numeroConvidado = parseInt(prompt("Informe o numero de convidados"))
 
-		let objAuditorio = auditorio.find((value) => numeroConvidado <= value.total )
+      let objAuditorio = auditorio.find((value) => numeroConvidado <= value.total )
 
-		if(objAuditorio == undefined || !objAuditorio.status){
-			alert("Não há auditorio disponivel")
-			inicio()
-		}
+      if(objAuditorio == undefined || !objAuditorio.status){
+        alert("Não há auditorio disponivel")
+        inicio()
+      }
 
-		alert(`Use o auditorio ${objAuditorio.nome} (inclua mais ${numeroConvidado - objAuditorio.lugares} cadeiras)`)
-	  }
+      //recurso tecnico arternativo (fiquei com preguiça de pensa em um solução melhor ent, vai essa msm)
+      let rta = numeroConvidado > objAuditorio.lugares ? numeroConvidado - objAuditorio.lugares : objAuditorio.lugares - numeroConvidado
+
+      alert(`Use o auditorio ${objAuditorio.nome} (inclua mais ${rta} cadeiras)`)
+	  
+      let diaEvento = String(prompt("Qual o dia do seu evento?"))
+      let horaEvento = parseInt(prompt("Qual a hora do seu evento?"))
+      let quantHora = parseInt(prompt("Quantas horas de evento?"))
+
+      let resultado = agenda_horario(diaEvento.toLowerCase(), horaEvento, quantHora)
+
+      while(!resultado){
+        alert("Auditório indisponível. Escolha outro horario.")
+
+        diaEvento = String(prompt("Qual o dia do seu evento?"))
+        horaEvento = parseInt(prompt("Qual a hora do seu evento?"))
+
+        resultado = agenda_horario(diaEvento.toLowerCase(), horaEvento)
+      }
+
+      let nomeEmpresa = String(prompt("Qual o nome da empresa?"))
+
+      alert(`Auditório reservado para ${nomeEmpresa}. ${capitalizarPrimeiraLetra(diaEvento)} às ${horaEvento}hs até as ${horaEvento + quantHora}hs.`)
+
+      let calc_Garcom = calGarcom(quantHora, numeroConvidado)
+      let calc_buffet = buffet(numeroConvidado)
+
+      alert(calc_Garcom.msg)
+      alert(calc_buffet.msg)
+
+      alert(`
+        Evento no ${objAuditorio.nome}\n
+        Nome da empresa: ${nomeEmpresa}\n
+        Data: ${capitalizarPrimeiraLetra(diaEvento)} às ${horaEvento}hs até as ${horaEvento + quantHora}hs.\n
+        Duração do evento: ${quantHora}\n
+        Quantidade de garçons: ${calc_Garcom.quantGarco}\n
+        Quantidade de Convidados: ${numeroConvidado}
+      `)
+
+      alert(`
+        Custo garçom: ${calc_Garcom.total}\n
+        Custo Buffet: ${calc_buffet.total}\n
+        Valor total do Evento: R$ ${calc_Garcom.total + calc_buffet.total}
+      `)
+
+      let opcao = String(prompt("Gostaria de efetuar a reserva? S/N"))
+
+      while (opcao.toUpperCase() != "S" && opcao.toUpperCase() != "N") {
+        opcao = String(prompt("Opcao invalida, escolha entre: S ou N")).toUpperCase();
+      }
+
+      if(opcao.toUpperCase() == "S"){
+        for(let i = 0; i <= quantHora-1; i++){
+          DATA[diaEvento] = DATA[diaEvento].filter(item => item !== horaEvento + i)
+        }
+        alert(`${nomeEmpresa}, reserva efetuada com sucesso.`)
+      }else{
+        alert(`${nomeEmpresa}, reserva cancelada com sucesso.`)
+      }
+
+      inicio()
+    
+    }
 
 
       function abastecer_carros() {
-        alert("HOTEL {NOME DO HOTEL} - ABASTECER");
+        alert("HOTEL PROANO - ABASTECER");
+
+        const alcoolWayne = parseFloat(prompt("Qual o valor do álcool no posto Wayne Oil?"));
+        const gasolinaWayne = parseFloat(prompt("Qual o valor da gasolina no posto Wayne Oil?"));
+        const alcoolStark = parseFloat(prompt("Qual o valor do álcool no posto Stark Petrol?"));
+        const gasolinaStark = parseFloat(prompt("Qual o valor da gasolina no posto Stark Petrol?"));
+        
+        const volumeTanque = 42;
+        
+        const custoAlcoolWayne = alcoolWayne * volumeTanque;
+        const custoGasolinaWayne = gasolinaWayne * volumeTanque;
+        const custoAlcoolStark = alcoolStark * volumeTanque;
+        const custoGasolinaStark = gasolinaStark * volumeTanque;
+        
+        const alcoolVantagemWayne = alcoolWayne < gasolinaWayne * 0.7;
+        const alcoolVantagemStark = alcoolStark < gasolinaStark * 0.7;
+        
+        const melhorCustoWayne = alcoolVantagemWayne ? custoAlcoolWayne : custoGasolinaWayne;
+        const melhorCombustivelWayne = alcoolVantagemWayne ? "álcool" : "gasolina";
+        
+        const melhorCustoStark = alcoolVantagemStark ? custoAlcoolStark : custoGasolinaStark;
+        const melhorCombustivelStark = alcoolVantagemStark ? "álcool" : "gasolina";
+        
+        let posto, combustivel;
+        
+        if (melhorCustoWayne <= melhorCustoStark) {
+            posto = "Wayne Oil";
+            combustivel = melhorCombustivelWayne;
+        } else {
+            posto = "Stark Petrol";
+            combustivel = melhorCombustivelStark;
+        }
+        
+        const nome = prompt("Por favor, digite seu nome:");
+        
+        alert(`${nome}, é mais barato abastecer com ${combustivel} no posto ${posto}`);
+
         inicio();
       }
 
