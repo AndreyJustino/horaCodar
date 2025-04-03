@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hora de codar 3</title>
+</head>
+
+<body>
+    <script>
+        function ex01() {
+            for (let c = 30; c >= 0; c--) {
+                console.log(c);
+            }
+            console.log("EXPLOSÃO");
+        }
+
+        function ex02() {
+            let n1 = parseInt(prompt("Informe o primeiro valor: "));
+            let n2 = parseInt(prompt("Informe o segundo valor: "));
+
+            while (n2 <= 0) {
+                alert("O valor informado não pode ser zero ou menor que zero!");
+                n2 = parseInt(prompt("Informe o segundo valor: "));
+            }
+
+            alert("A divisão entre o primeiro número e o segundo é: " + (n1 / n2));
+        }
+
+        function ex03() {
+            for (let c = 10; c >= 1; c--) {
+                console.log(c);
+            }
+        }
+
+        function ex04() {
+            let calc = 0, quantidade = 0;
+
+            for (let c = 15; c <= 100; c++) {
+                calc += c;
+                quantidade++;
+            }
+
+            alert("A média aritmética é: " + (calc / quantidade));
+        }
+
+        function ex05() {
+            let n1 = parseInt(prompt("Informe o primeiro número: "));
+            let n2 = parseInt(prompt("Informe o segundo número: "));
+
+            let calc = 0, quantidade = 0;
+
+            for (let c = n1; c <= n2; c++) {
+                calc += c;
+                quantidade++;
+            }
+
+            alert("A média aritmética é: " + (calc / quantidade));
+        }
+
+        function ex06() {
+            let contador = 0;
+
+            do {
+                let nota1 = parseFloat(prompt("Informe a primeira nota: "));
+                let nota2 = parseFloat(prompt("Informe a segunda nota: "));
+                let calcMedia = (nota1 + nota2) / 2;
+
+                alert("Média final: " + calcMedia);
+
+                if (calcMedia >= 9.5) {
+                    alert("Aluno foi aprovado!");
+                    contador++;
+                } else {
+                    alert("Aluno não foi aprovado!");
+                }
+
+                var opcao = prompt("Calcular a média de outro aluno Sim/Não?").toUpperCase();
+            } while (opcao === "S");
+
+            alert("Fim do programa! Quantidade de alunos aprovados: " + contador);
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>
