@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hora de codar 2  JS</title>
+</head>
+<body>
+    <script>
+        function ex01(){
+            //1. Escreva um programa em que o usuário informe dois números. Então escreva em tela o maior deles. 
+
+            let n1 = Number(prompt("Digita um numero ai"))
+            let n2 = Number(prompt("Digita mais um numero ai"))
+
+            let condicao = n1 > n2 ? n1 : n2
+
+            alert("Maior é: " + condicao)
+        }
+
+        function ex02(){
+            //2. Faça um programa que leia um valor informado pelo usuário e diga se o valor informado é positivo, negativo ou zero.
+
+            let n1 = Number(prompt("Digita um numero ai"))
+
+            alert(n1 > 0 ? "Positivo" : "Negativo")
+        }
+
+        function ex03(){
+            //3. Faça um programa para ler 3 valores (considere que não serão informados valores iguais) e escrever o maior deles. 
+            let n1 = Number(prompt("Digita um numero ai"))
+            let n2 = Number(prompt("Digita mais um numero ai"))
+            let n3 = Number(prompt("Digita ultimo numero ai"))
+
+            if(n1 > n2 && n1 > n3){
+                alert("Maior: " + n1)
+            }else if(n2 > n1 && n2 > n3){
+                alert("Maior: " + n2)
+            }else{
+                alert("Maior: " + n3)
+            }
+
+        }
+
+        function ex04(){
+            //4. Faça um programa que leia 3 valores informados pelo usuário (considere que não serão informados valores iguais) e escrever a soma dos 2 maiores. 
+
+            let lista = []
+
+            for(let i = 0; i < 3; i++){
+                let valor = Number(prompt("Digita um numero"))
+                lista.push(valor)
+            }
+
+            lista.sort((a, b) => { return a - b })
+
+            alert("A soma dos dois maiores é: " + (lista[1] + lista[2]))
+        }
+
+        function ex05(){
+            //5.  Faça um programa que leia 6 valores informados pelo usuário, calcule, exiba os números informados e escreva a média aritmética desses valores lidos
+
+            let lista = []
+
+            for(let i = 0; i < 6; i++){
+                let valor = Number(prompt("Digita um numero"))
+                lista.push(valor)
+            }
+
+            let total = lista.reduce((acumulador, atual) => {
+                return acumulador + atual
+            }, 0)
+
+            alert("A media é: " + total / 6)
+
+        }
+
+        function ex06(){
+            //6. Faça um programa que receba quatro valores informados pelo usuário, mas informe somente o primeiro, 
+            // o último e o maior de todos eles (considere que todos os números informados serão diferentes)
+
+            let lista = []
+            let maior = 0
+
+            for(let i = 0; i < 4; i++){
+                let valor = Number(prompt("Digita um numero"))
+                lista.push(valor)
+
+                if(valor > maior){
+                    maior = valor
+                }
+            }
+
+            alert(`Primeiro valor: ${lista[0]}, Ultimo valor: ${lista[3]}, Maior: ${maior}`)
+            
+        }
+
+        function ex07(){
+            //7. Faça um programa que leia 6 números que o usuário vai informar. Todos os números lidos com valor 
+            // inferior a 72 devem ser somados. Escreva o valor final da soma efetuada e também todos valores que o usuário informou.
+
+            let lista = []
+            let soma = 0
+
+            for(let i = 0; i < 6; i++){
+                let valor = Number(prompt("Digita um numero"))
+                lista.push(valor)
+
+                if(valor < 72){
+                    soma += valor
+                }
+            }
+
+            alert(`Todos os valores que você informou: ${lista}, soma total dos valores inferiores a 72: ${soma}`)
+        }
+
+        function ex08(){
+            //8. Escreva um programa que calcule a média de quatro números informados pelo usuário, mas somente se 
+            // esses números forem maiores que 0 e menores que 10. No final, se a média for maior que cinco o usuário 
+            // receberá uma mensagem "Você passou no teste". Em qualquer outra situação, ele receberá uma mensagem de 
+            // "tente novamente" 
+
+            let soma = 0, conta = 0, media = 0;
+
+            for (let i = 0; i < 4; i++) {
+                let n = parseInt(prompt(`Digite o ${i + 1}° número: `));
+
+                if (n > 0 && n < 10) {
+                    soma += n;
+                    conta++;
+                }
+            }
+
+            media = soma / conta;
+
+            if (media > 5) {
+                alert("Você passou no teste");
+            } else {
+                alert("Tente novamente");
+            }
+
+        }
+
+        function ex09() {
+            //9. Escreva um programa para ler o ano de nascimento de uma pessoa e escrever uma 
+            // mensagem que diga se ela poderá ou não votar este ano (não é necessário considerar o mês em que ela nasceu).
+
+            const ANO = new Date().getFullYear();
+            let anoNascimento, calc;
+
+            anoNascimento = parseInt(prompt("Digite o ano em que você nasceu: "));
+            calc = ANO - anoNascimento;
+
+            if (calc >= 18) {
+                alert("Você poderá votar");
+            } else {
+                alert("Você não poderá votar");
+            }
+        }
+
+        function ex10() {
+            //10. Tendo como entrada a altura e o gênero designado ao nascer (codificado da seguinte forma: 1: feminino - 2: masculino - ) 
+            // de uma pessoa, construa um programa que calcule e imprima seu peso ideal, utilizando as seguintes fórmulas.
+
+            let genero, h;
+
+            genero = parseInt(prompt("Informe seu gênero (1: feminino, 2: masculino): "));
+            h = parseFloat(prompt("Informe sua altura: "));
+
+            if (genero === 1) {
+                alert("Seu peso ideal é: " + ((62.1 * h) - 44.7));
+            } else if (genero === 2) {
+                alert("Seu peso ideal é: " + ((72.7 * h) - 58));
+            } else {
+                alert("Gênero inválido");
+            }
+        }
+
+        function ex11() {
+            //11. Uma micro calculadora
+            //Escreva um programa para ler 2 valores inteiros informados pelo usuário e uma das seguintes operações a serem executadas (codificada da seguinte forma: 1. Adição, 2. Subtração, 3. Divisão, 4. Multiplicação).
+            //O programa deve calcular e escrever o resultado dessa operação sobre os dois valores lidos. 
+
+            let n1, n2, operacao;
+
+            n1 = parseInt(prompt("Informe o primeiro número: "));
+            n2 = parseInt(prompt("Informe o segundo número: "));
+            operacao = parseInt(prompt("Informe o número da operação (1: Adição, 2: Subtração, 3: Divisão, 4: Multiplicação): "));
+
+            if (operacao === 1) {
+                alert("O resultado da operação é: " + (n1 + n2));
+            } else if (operacao === 2) {
+                alert("O resultado da operação é: " + (n1 - n2));
+            } else if (operacao === 3) {
+                if (n2 === 0) {
+                alert("Não é possível dividir por zero!");
+                } else {
+                alert("O resultado da operação é: " + (n1 / n2));
+                }
+            } else if (operacao === 4) {
+                alert("O resultado da operação é: " + (n1 * n2));
+            } else {
+                alert("Operação inválida!");
+            }
+        }
+
+
+
+        ex11()
+    </script>
+</body>
+</html>
