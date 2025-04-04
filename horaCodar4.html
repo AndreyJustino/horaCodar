@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hora de codar 4</title>
+</head>
+
+<body>
+    <script>
+        function ex01() {
+            let lista = [];
+
+            do {
+                let nome = String(prompt("Digite o nome do aluno:"));
+
+                lista.push(nome);
+
+                let opcao = prompt("Deseja cadastrar mais algum aluno? [S/N]").toUpperCase();
+
+                if (opcao != "S" && opcao != "N") {
+                    opcao = prompt("Opção invalida, escolha: [S/N]").toUpperCase();
+                }
+
+            } while (opcao == "S");
+
+            alert(`Numero de estudantes cadastrados: ${lista.length}`)
+            alert(`Alunos cadstrados: ${lista}`)
+        }
+
+        function ex02() {
+            let planetas = ["Terra", "Marte", "Plutão", "Vênus", "Júpiter", "Saturno"];
+
+            let nomePlaneta = prompt("Informe o nome de um planeta");
+
+            nomePlaneta = nomePlaneta.charAt(0).toUpperCase() + nomePlaneta.slice(1);
+
+            if (planetas.includes(nomePlaneta)) {
+                alert("O valor esta dentro do array");
+            } else {
+                alert("O valor não esta dentro do array");
+            }
+        }
+
+        function ex03() {
+            let frutas = ["maçã", "banana", "laranja", "uva", "abacaxi", "morango"];
+            
+            alert(`Lista de frutas disponíveis: ${frutas.join(", ")}`);
+
+            while (frutas.length > 0) {
+                let frutaPedido = prompt("Digite o nome de uma fruta para remover da lista:");
+
+                if (frutas.includes(frutaPedido)) {
+                    let index = frutas.indexOf(frutaPedido);
+                    frutas.splice(index, 1);
+                    alert("Fruta foi retirada da lista.");
+                } else {
+                    alert("Fruta indisponível no nosso mercado.");
+                }
+
+                alert(`Lista de frutas restantes: ${frutas.join(", ")}`);
+            }
+            alert("Lista de compras finalizada.");
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>
