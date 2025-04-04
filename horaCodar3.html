@@ -82,6 +82,64 @@
             alert("Fim do programa! Quantidade de alunos aprovados: " + contador);
         }
 
+        function ex07() {
+            let somaTotalNota = 0;
+
+            for (let i = 0; i < 6; i++) {
+                let nota;
+
+                do {
+                    nota = parseFloat(prompt(`Informe a ${i + 1}° nota do aluno:`));
+                    if (nota < 0 || nota > 10) {
+                        alert("Valor da nota inválido! Valor deve estar entre 0 e 10.");
+                    }
+                } while (nota < 0 || nota > 10);
+
+                somaTotalNota += nota;
+            }
+
+            alert(`A média final do aluno foi: ${somaTotalNota / 6}`);
+        }
+
+        function ex08() {
+            let n = parseInt(prompt("Informe um valor:"));
+
+            for (let i = 1; i <= n; i++) {
+                console.log(i);
+            }
+        }
+
+        function ex09() {
+            for (let i = 101; i <= 110; i++) {
+                console.log(i);
+            }
+        }
+
+        function ex10() {
+            let contadorEntre = 0, contadorFora = 0;
+
+            for (let i = 0; i < 10; i++) {
+                let n1 = parseInt(prompt("Informe um valor:"));
+
+                if (n1 >= 24 && n1 <= 42) {
+                    contadorEntre++;
+                } else {
+                    contadorFora++;
+                }
+            }
+
+            alert(`Total de valores entre: ${contadorEntre}`);
+            alert(`Total de valores fora: ${contadorFora}`);
+        }
+
+        function ex11() {
+            let n1 = parseInt(prompt("Informe um valor para a tabuada:"));
+
+            for (let i = 1; i <= 10; i++) {
+                console.log(`${n1} x ${i} = ${n1 * i}`);
+            }
+        }
+
 
 
 
