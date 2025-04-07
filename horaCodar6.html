@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hora de codar 6</title>
+  </head>
+  <body>
+    <script>
+      function ex01() {
+        //Escreva um programa que crie uma variável chamada "nome_do_carro" e atribua-a um valor "Fusca". Exiba-a ao usuário.
+
+        let nome_do_carro;
+        nome_do_carro = "Fusca";
+
+        alert(nome_do_carro);
+      }
+
+      function ex02() {
+        //Escreva um programa em que o usuário informe o seu nome e exiba a mensagem "Olá, [NomeDoUsuario]".
+        let nome = prompt("Infome seu nome");
+        alert(`Olá, ${nome}`);
+      }
+
+      function ex03() {
+        let nome = prompt("Qual é o seu nome?");
+        let idade = prompt("Qual é a sua idade?");
+        alert(`Olá, ${nome}, sua idade é ${idade}`);
+      }
+
+      function ex04() {
+        //Considerando a figura abaixo, escreva um programa para cada forma que calcule e exiba em tela cada uma de suas respectivas áreas. O usuário irá informar os valores de cada variável.
+
+          let opcao = parseInt(
+            prompt(
+              "ESCOLHA UMA DAS OPÇÕES ABAIXO:\n" +
+                "CALCULAR RETÂNGULO [1]\n" +
+                "CALCULAR QUADRADO [2]\n" +
+                "CALCULAR LOSANGO [3]\n" +
+                "CALCULAR TRAPÉZIO [4]\n" +
+                "CALCULAR PARALELOGRAMA [5]\n" +
+                "CALCULAR TRIÂNGULO [6]\n" +
+                "CALCULAR CÍRCULO [7]\n" +
+                "FECHAR PROGRAMA [0]"
+            )
+          );
+
+          while (opcao !== 0) {
+            switch (opcao) {
+              case 1:
+                let baseRet = parseFloat(
+                  prompt("Informe a base do retângulo:")
+                );
+                let alturaRet = parseFloat(
+                  prompt("Informe a altura do retângulo:")
+                );
+                alert("A área do retângulo é: " + baseRet * alturaRet);
+                break;
+
+              case 2:
+                let lado = parseFloat(prompt("Informe o lado do quadrado:"));
+                alert("A área do quadrado é: " + lado * lado);
+                break;
+
+              case 3:
+                let diagMaior = parseFloat(
+                  prompt("Informe a diagonal maior do losango:")
+                );
+                let diagMenor = parseFloat(
+                  prompt("Informe a diagonal menor do losango:")
+                );
+                alert("A área do losango é: " + (diagMaior * diagMenor) / 2);
+                break;
+
+              case 4:
+                let baseMaior = parseFloat(
+                  prompt("Informe a base maior do trapézio:")
+                );
+                let baseMenor = parseFloat(
+                  prompt("Informe a base menor do trapézio:")
+                );
+                let alturaTrap = parseFloat(
+                  prompt("Informe a altura do trapézio:")
+                );
+                alert(
+                  "A área do trapézio é: " +
+                    ((baseMaior + baseMenor) * alturaTrap) / 2
+                );
+                break;
+
+              case 5:
+                let basePar = parseFloat(
+                  prompt("Informe a base do paralelogramo:")
+                );
+                let alturaPar = parseFloat(
+                  prompt("Informe a altura do paralelogramo:")
+                );
+                alert("A área do paralelogramo é: " + basePar * alturaPar);
+                break;
+
+              case 6:
+                let baseTri = parseFloat(
+                  prompt("Informe a base do triângulo:")
+                );
+                let alturaTri = parseFloat(
+                  prompt("Informe a altura do triângulo:")
+                );
+                alert("A área do triângulo é: " + (baseTri * alturaTri) / 2);
+                break;
+
+              case 7:
+                let raio = parseFloat(prompt("Informe o raio do círculo:"));
+                alert("A área do círculo é: " + 3.14 * raio * raio);
+                break;
+
+              default:
+                alert("Opção inválida!");
+                break;
+            }
+
+            opcao = parseInt(
+              prompt(
+                "ESCOLHA UMA DAS OPÇÕES ABAIXO:\n" +
+                  "CALCULAR RETÂNGULO [1]\n" +
+                  "CALCULAR QUADRADO [2]\n" +
+                  "CALCULAR LOSANGO [3]\n" +
+                  "CALCULAR TRAPÉZIO [4]\n" +
+                  "CALCULAR PARALELOGRAMA [5]\n" +
+                  "CALCULAR TRIÂNGULO [6]\n" +
+                  "CALCULAR CÍRCULO [7]\n" +
+                  "FECHAR PROGRAMA [0]"
+              )
+            );
+          }
+
+          alert("Programa finalizado!");
+        }
+    </script>
+  </body>
+</html>
