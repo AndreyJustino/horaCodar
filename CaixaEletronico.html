@@ -1,0 +1,163 @@
+<html>
+  <head>
+    <script>
+      let saldo = 150.0;
+      let extrato = [
+        "Brinco da muie",
+        "Número 19 do jogo do bicho",
+        "Comida da 32",
+        "Baralho do truco",
+        "Monitor Gamer 4k",
+      ];
+      let nome = "";
+
+      function inicio() {
+        nome = prompt("Qual seu nome?");
+        alert(`Olá ${nome}, é um prazer ter você por aqui!\n`);
+        opcao();
+      }
+
+      function opcao() {
+        let operacao = parseInt(
+          prompt(
+            "Escolha uma opção:\n" +
+              "1. Ver saldo\n" +
+              "2. Ver extrato\n" +
+              "3. Fazer saque\n" +
+              "4. Fazer depósito\n" +
+              "5. Fazer transferência\n" +
+              "6. Sair"
+          )
+        );
+
+        alert("A opção selecionada foi: " + operacao);
+
+        switch (operacao) {
+          case 1:
+            verSaldo();
+            break;
+          case 2:
+            verExtrato();
+            break;
+          case 3:
+            fazerSaque();
+            break;
+          case 4:
+            fazerDeposito();
+            break;
+          case 5:
+            fazerTransferencia();
+            break;
+          case 6:
+            sair();
+            break;
+          default:
+            erro();
+        }
+      }
+
+      function verSaldo() {
+        let senha = parseInt(prompt("Informe a senha:"));
+
+        if (senha !== 3589) {
+          alert("Senha inválida!\n");
+          opcao();
+        } else {
+          alert(`Senha correta. Seu saldo atual é: R$ ${saldo.toFixed(2)}`);
+          opcao();
+        }
+      }
+
+      function fazerDeposito() {
+        let deposito = parseFloat(prompt("Qual o valor para depósito?"));
+
+        if (deposito <= 0 || isNaN(deposito)) {
+          alert("Por favor, informe um número válido.");
+          fazerDeposito();
+        } else {
+          saldo += deposito;
+          verSaldo();
+        }
+      }
+
+      function fazerSaque() {
+        let senha = parseInt(prompt("Informe a senha:"));
+
+        if (senha !== 3589) {
+          alert("Senha inválida!");
+          opcao();
+        } else {
+          alert("Senha correta.");
+
+          let saque = parseFloat(prompt("Qual o valor para saque?"));
+
+          if (saque <= 0 || isNaN(saque)) {
+            alert("Por favor, informe um número válido.");
+            fazerSaque();
+          } else if (saque > saldo) {
+            alert("Operação não autorizada");
+            opcao();
+          } else {
+            saldo -= saque;
+            verSaldo();
+          }
+        }
+      }
+
+      function verExtrato() {
+        let senha = parseInt(prompt("Informe a senha:"));
+
+        if (senha !== 3589) {
+          alert("Senha inválida!");
+          verExtrato();
+        } else {
+          alert("Senha correta. Seu extrato é:\n" + extrato.join("\n"));
+          opcao();
+        }
+      }
+
+      function fazerTransferencia() {
+        let senha = parseInt(prompt("Informe a senha:"));
+
+        if (senha !== 3589) {
+          alert("Senha inválida!");
+          fazerTransferencia();
+        } else {
+          let numeroConta = prompt("Informe o número da conta:");
+          let transferencia = parseFloat(
+            prompt("Qual o valor da transferência?")
+          );
+
+          while (transferencia <= 0 || isNaN(transferencia)) {
+            transferencia = parseFloat(
+              prompt(
+                "Valor inválido. Informe o valor da transferência novamente:"
+              )
+            );
+          }
+
+          while (transferencia > saldo) {
+            transferencia = parseFloat(
+              prompt("Saldo insuficiente. Informe outro valor:")
+            );
+          }
+
+          saldo -= transferencia;
+          verSaldo();
+        }
+      }
+
+      function sair() {
+        alert(`Programa encerrado\n${nome}, foi um prazer ter você por aqui!`);
+      }
+
+      function erro() {
+        alert("Opção inválida");
+        opcao();
+      }
+      inicio();
+    </script>
+  </head>
+
+  <body></body>
+</html>
